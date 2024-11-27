@@ -1,11 +1,11 @@
-import Markdown from "react-markdown";
+import MarkdownPreview from "@uiw/react-markdown-preview";
 
 const Review = ({ review }: { review?: string }) => {
   if (!review) {
     return null;
   }
 
-  return <Markdown>{review}</Markdown>;
+  return <MarkdownPreview source={review} className="p-4" />;
 };
 
 export default Review;

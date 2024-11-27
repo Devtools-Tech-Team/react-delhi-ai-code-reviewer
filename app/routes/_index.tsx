@@ -2,7 +2,7 @@ import type { MetaFunction } from "@remix-run/node";
 import { useState } from "react";
 
 import Editor from "~/components/Editor.client";
-import Review from "~/components/Review";
+import Review from "~/components/Review.client";
 
 export const meta: MetaFunction = () => {
   return [
@@ -13,6 +13,8 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   const [code, setCode] = useState("");
+  const [review, setReview] = useState("");
+
   const onChange = (updatedValue: string) => setCode(updatedValue);
 
   return (
@@ -22,7 +24,7 @@ export default function Index() {
           <Editor code={code} onChange={onChange} />
         </div>
         <div className="h-full w-6/12">
-          <Review />
+          <Review review={review} />
         </div>
       </div>
     </div>
