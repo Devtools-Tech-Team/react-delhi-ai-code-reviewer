@@ -1,6 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
 import { useState } from "react";
-import classnames from "classnames";
 
 import Editor from "~/components/Editor.client";
 import Review from "~/components/Review.client";
