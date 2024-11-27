@@ -1,12 +1,12 @@
 import type { MetaFunction } from "@remix-run/node";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 
-import Editor from "~/components/Editor.client";
-import Review from "~/components/Review.client";
-import Loader from "~/components/Loader";
+// import Editor from "~/components/Editor.client";
+// import Review from "~/components/Review.client";
+// import Loader from "~/components/Loader";
 
-import generateReview from "~/actions/review";
-import { useFetcher } from "@remix-run/react";
+// import generateReview from "~/actions/review";
+// import { useFetcher } from "@remix-run/react";
 
 export const meta: MetaFunction = () => {
   return [
@@ -15,62 +15,88 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export const action = generateReview;
+// export const action = generateReview;
 
 export default function Index() {
-  const [code, setCode] = useState("");
-  const [state, setState] = useState<"idle" | "loading" | "generated">("idle");
-  const [isHydrated, setHyrated] = useState(false);
-  const fetcher = useFetcher();
+  // For saving code
+  // const [code, setCode] = useState("");
 
-  const onChange = (updatedValue: string) => setCode(updatedValue);
+  // For UI state
+  // const [state, setState] = useState<"idle" | "loading" | "generated">("idle");
 
-  const onGenerateReview = async () => {
-    const formData = new FormData();
+  // For proper rendering
+  // const [isHydrated, setHyrated] = useState(false);
 
-    formData.append("code", code);
-    fetcher.submit(formData, {
-      method: "POST",
-    });
-  };
+  // For POST request
+  // const fetcher = useFetcher();
 
-  useEffect(() => {
-    if (!isHydrated) {
-      setHyrated(true);
-    }
-  }, [isHydrated]);
+  // For handling code change
+  // const onChange = (updatedValue: string) => setCode(updatedValue);
 
-  useEffect(() => {
-    if (fetcher.state === "submitting") {
-      setState("loading");
-    } else if (fetcher.state === "idle" && fetcher.data) {
-      setState("generated");
-    } else {
-      setState("idle");
-    }
-  }, [fetcher.state, fetcher.data]);
+  // For handling code generation
+  // const onGenerateReview = async () => {
+  //   const formData = new FormData();
+
+  //   formData.append("code", code);
+  //   fetcher.submit(formData, {
+  //     method: "POST",
+  //   });
+  // };
+
+  // For Hydration
+  // useEffect(() => {
+  //   if (!isHydrated) {
+  //     setHyrated(true);
+  //   }
+  // }, [isHydrated]);
+
+  // For changing UI state
+  // useEffect(() => {
+  //   if (fetcher.state === "submitting") {
+  //     setState("loading");
+  //   } else if (fetcher.state === "idle" && fetcher.data) {
+  //     setState("generated");
+  //   } else {
+  //     setState("idle");
+  //   }
+  // }, [fetcher.state, fetcher.data]);
 
   return (
-    <div className="flex h-screen items-center justify-center">
-      <div className="flex flex-row h-full w-full">
-        <div className="h-full w-6/12 relative">
-          <button
+    <div className="flex h-full w-full items-center justify-center">
+      {/* Comment */}
+      <div className="flex flex-row h-full w-full bg-black justify-center content-center">
+        {/* Uncomment */}
+        {/* <div className="flex flex-row h-full w-full bg-black justify-center content-center"> */}
+        {/* Comment */}
+        <div className="self-center">
+          <h1 className="text-8xl">Let us build a Code Reviewer</h1>
+          <a
+            href="https://youtube.com/devtoolstech"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-6xl text-green-300 hover:text-green-500 hover:underline"
+          >
+            Subscribe to youtube.com/devtoolstech
+          </a>
+        </div>
+        {/* <div className="h-full w-6/12 relative"> */}
+        {/* <button
             className="w-max absolute bottom-3 right-3 z-50 bg-green-500 p-2 rounded hover:bg-green-700 active:translate-y-1 disabled:opacity-75  disabled:pointer-events-none disabled:cursor-not-allowed"
             disabled={state === "loading"}
             onClick={onGenerateReview}
           >
             Generate Review
-          </button>
-          {isHydrated ? (
+          </button> */}
+        {/* {isHydrated ? (
             <Editor key="code-editor" code={code} onChange={onChange} />
-          ) : null}
-        </div>
-        <div className="h-full w-6/12 relative">
-          {state === "loading" ? <Loader /> : null}
-          {isHydrated ? (
+          ) : null} */}
+        {/* </div> */}
+        {/* <div className="h-full w-6/12 relative"> */}
+        {/* {state === "loading" ? <Loader /> : null} */}
+        {/* {isHydrated ? (
             <Review key="review" review={fetcher.data?.review} />
-          ) : null}
-        </div>
+          ) : null} */}
+        {/* </div> */}
       </div>
     </div>
   );
