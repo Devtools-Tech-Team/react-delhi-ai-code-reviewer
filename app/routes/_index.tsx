@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 import Editor from "~/components/Editor.client";
 import Review from "~/components/Review.client";
+import Loader from "~/components/Loader";
 
 import generateReview from "~/actions/review";
 import { useFetcher } from "@remix-run/react";
@@ -64,8 +65,8 @@ export default function Index() {
             <Editor key="code-editor" code={code} onChange={onChange} />
           ) : null}
         </div>
-        <div className="h-full w-6/12">
-          {state === "loading" ? <div>Loading...</div> : null}
+        <div className="h-full w-6/12 relative">
+          {state === "loading" ? <Loader /> : null}
           {isHydrated ? (
             <Review key="review" review={fetcher.data?.review} />
           ) : null}
