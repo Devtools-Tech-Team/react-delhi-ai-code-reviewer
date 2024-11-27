@@ -2,6 +2,7 @@ import type { MetaFunction } from "@remix-run/node";
 import { useState } from "react";
 
 import Editor from "~/components/Editor.client";
+import Review from "~/components/Review";
 
 export const meta: MetaFunction = () => {
   return [
@@ -20,7 +21,9 @@ export default function Index() {
         <div className="h-full w-6/12">
           <Editor code={code} onChange={onChange} />
         </div>
-        <div className="h-full w-6/12">Review</div>
+        <div className="h-full w-6/12">
+          <Review />
+        </div>
       </div>
     </div>
   );
