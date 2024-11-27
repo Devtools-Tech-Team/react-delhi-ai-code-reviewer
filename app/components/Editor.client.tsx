@@ -15,6 +15,7 @@ const Editor = ({
       extensions={[javascript({ jsx: true })]}
       onChange={onChange}
       theme="dark"
+      className="text-xl"
     />
   );
 };

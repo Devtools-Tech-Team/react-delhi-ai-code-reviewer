@@ -1,8 +1,11 @@
 import type { MetaFunction } from "@remix-run/node";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Editor from "~/components/Editor.client";
 import Review from "~/components/Review.client";
+
+import generateReview from "~/actions/review";
+import { useFetcher } from "@remix-run/react";
 
 export const meta: MetaFunction = () => {
   return [
@@ -11,12 +14,40 @@ export const meta: MetaFunction = () => {
   ];
 };
 
+export const action = generateReview;
+
 export default function Index() {
   const [code, setCode] = useState("");
-  const [review, setReview] = useState("");
   const [state, setState] = useState<"idle" | "loading" | "generated">("idle");
+  const [isHydrated, setHyrated] = useState(false);
+  const fetcher = useFetcher();
 
   const onChange = (updatedValue: string) => setCode(updatedValue);
+
+  const onGenerateReview = async () => {
+    const formData = new FormData();
+
+    formData.append("code", code);
+    fetcher.submit(formData, {
+      method: "POST",
+    });
+  };
+
+  useEffect(() => {
+    if (!isHydrated) {
+      setHyrated(true);
+    }
+  }, [isHydrated]);
+
+  useEffect(() => {
+    if (fetcher.state === "submitting") {
+      setState("loading");
+    } else if (fetcher.state === "idle" && fetcher.data) {
+      setState("generated");
+    } else {
+      setState("idle");
+    }
+  }, [fetcher.state, fetcher.data]);
 
   return (
     <div className="flex h-screen items-center justify-center">
@@ -25,13 +56,19 @@ export default function Index() {
           <button
             className="w-max absolute bottom-3 right-3 z-50 bg-green-500 p-2 rounded hover:bg-green-700 active:translate-y-1 disabled:opacity-75  disabled:pointer-events-none disabled:cursor-not-allowed"
             disabled={state === "loading"}
+            onClick={onGenerateReview}
           >
             Generate Review
           </button>
-          <Editor code={code} onChange={onChange} />
+          {isHydrated ? (
+            <Editor key="code-editor" code={code} onChange={onChange} />
+          ) : null}
         </div>
         <div className="h-full w-6/12">
-          <Review review={review} />
+          {state === "loading" ? <div>Loading...</div> : null}
+          {isHydrated ? (
+            <Review key="review" review={fetcher.data?.review} />
+          ) : null}
         </div>
       </div>
     </div>

@@ -5,7 +5,15 @@ const Review = ({ review }: { review?: string }) => {
     return null;
   }
 
-  return <MarkdownPreview source={review} className="p-4" />;
+  return (
+    <MarkdownPreview
+      source={review}
+      className="p-4 h-full"
+      style={{
+        fontSize: "20px",
+      }}
+    />
+  );
 };
 
 export default Review;
