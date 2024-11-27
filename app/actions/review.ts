@@ -7,7 +7,10 @@ const MODEL_CONFIG = {
 };
 const llm = new ChatOllama(MODEL_CONFIG);
 
-const SYSTEM_PROMPT_CURRENT_CODE = `
+const SYSTEM_PROMPT_BASIC =
+  "You are an expert front-end software engineer. Review the code shared below";
+
+const SYSTEM_PROMPT_ADVANCED = `
 You are an expert front-end software engineer reviewing the code in an interview. You need to review and complete the tasks.
 
 Your task:
@@ -36,13 +39,13 @@ Key guidelines for your response:
 If no changes are needed, clearly state: "No improvements necessary."
 `;
 
-const generateReview = async ({ request }) => {
+const generateReview = async ({ request }: { request: Request }) => {
   try {
     const form = await request.formData();
-    const code = form.get("code");
+    const code = form.get("code") as string;
 
     const response = await llm.invoke([
-      ["system", SYSTEM_PROMPT_CURRENT_CODE],
+      ["system", SYSTEM_PROMPT_ADVANCED],
       ["human", code],
     ]);
 
