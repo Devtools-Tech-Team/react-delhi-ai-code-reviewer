@@ -1,12 +1,12 @@
 import type { MetaFunction } from "@remix-run/node";
-// import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-// import Editor from "~/components/Editor.client";
-// import Review from "~/components/Review.client";
-// import Loader from "~/components/Loader";
+import Editor from "~/components/Editor.client";
+import Review from "~/components/Review.client";
+import Loader from "~/components/Loader";
 
-// import generateReview from "~/actions/review";
-// import { useFetcher } from "@remix-run/react";
+import generateReview from "~/actions/review";
+import { useFetcher } from "@remix-run/react";
 
 export const meta: MetaFunction = () => {
   return [
@@ -15,88 +15,76 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-// export const action = generateReview;
+// PUT OR PUT REQUEST
+export const action = generateReview;
 
 export default function Index() {
   // For saving code
-  // const [code, setCode] = useState("");
+  const [code, setCode] = useState("");
 
   // For UI state
-  // const [state, setState] = useState<"idle" | "loading" | "generated">("idle");
+  const [state, setState] = useState<"idle" | "loading" | "generated">("idle");
 
   // For proper rendering
-  // const [isHydrated, setHyrated] = useState(false);
+  const [isHydrated, setHyrated] = useState(false);
 
   // For POST request
-  // const fetcher = useFetcher();
+  const fetcher = useFetcher();
 
   // For handling code change
-  // const onChange = (updatedValue: string) => setCode(updatedValue);
+  const onChange = (updatedValue: string) => setCode(updatedValue);
 
   // For handling code generation
-  // const onGenerateReview = async () => {
-  //   const formData = new FormData();
+  const onGenerateReview = async () => {
+    const formData = new FormData();
 
-  //   formData.append("code", code);
-  //   fetcher.submit(formData, {
-  //     method: "POST",
-  //   });
-  // };
+    // { 'code': "Hello World" }
+    formData.append("code", code);
+    // '/'
+    fetcher.submit(formData, {
+      method: "POST",
+    });
+  };
 
   // For Hydration
-  // useEffect(() => {
-  //   if (!isHydrated) {
-  //     setHyrated(true);
-  //   }
-  // }, [isHydrated]);
+  useEffect(() => {
+    if (!isHydrated) {
+      setHyrated(true);
+    }
+  }, [isHydrated]);
 
   // For changing UI state
-  // useEffect(() => {
-  //   if (fetcher.state === "submitting") {
-  //     setState("loading");
-  //   } else if (fetcher.state === "idle" && fetcher.data) {
-  //     setState("generated");
-  //   } else {
-  //     setState("idle");
-  //   }
-  // }, [fetcher.state, fetcher.data]);
+  useEffect(() => {
+    if (fetcher.state === "submitting") {
+      setState("loading");
+    } else if (fetcher.state === "idle" && fetcher.data) {
+      setState("generated");
+    } else {
+      setState("idle");
+    }
+  }, [fetcher.state, fetcher.data]);
 
   return (
     <div className="flex h-full w-full items-center justify-center">
-      {/* Comment */}
       <div className="flex flex-row h-full w-full bg-black justify-center content-center">
-        {/* Uncomment */}
-        {/* <div className="flex flex-row h-full w-full bg-black justify-center content-center"> */}
-        {/* Comment */}
-        <div className="self-center">
-          <h1 className="text-8xl">Let us build a Code Reviewer</h1>
-          <a
-            href="https://youtube.com/devtoolstech"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-6xl text-green-300 hover:text-green-500 hover:underline"
-          >
-            Subscribe to youtube.com/devtoolstech
-          </a>
-        </div>
-        {/* <div className="h-full w-6/12 relative"> */}
-        {/* <button
+        <div className="h-full w-6/12 relative">
+          <button
             className="w-max absolute bottom-3 right-3 z-50 bg-green-500 p-2 rounded hover:bg-green-700 active:translate-y-1 disabled:opacity-75  disabled:pointer-events-none disabled:cursor-not-allowed"
             disabled={state === "loading"}
             onClick={onGenerateReview}
           >
             Generate Review
-          </button> */}
-        {/* {isHydrated ? (
+          </button>
+          {isHydrated ? (
             <Editor key="code-editor" code={code} onChange={onChange} />
-          ) : null} */}
-        {/* </div> */}
-        {/* <div className="h-full w-6/12 relative"> */}
-        {/* {state === "loading" ? <Loader /> : null} */}
-        {/* {isHydrated ? (
-            <Review key="review" review={fetcher.data?.review} />
-          ) : null} */}
-        {/* </div> */}
+          ) : null}
+        </div>
+        <div className="h-full w-6/12 relative">
+          {state === "loading" ? <Loader /> : null}
+          {isHydrated ? (
+            <Review key="review" review={fetcher.data?.review ?? ""} />
+          ) : null}
+        </div>
       </div>
     </div>
   );
