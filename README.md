@@ -1,40 +1,27 @@
-# Welcome to Remix!
-
-- 📖 [Remix docs](https://remix.run/docs)
+# AI in Frontend: Building A Code Reviewer
 
 ## Development
 
-Run the dev server:
+To run this web-app locally, you need
 
-```shellscript
-npm run dev
-```
+- [Ollama](https://ollama.com/)
+- [Codellama Modal](https://ollama.com/library/codellama)
 
-## Deployment
+1. Download the Ollama.
+2. Install codellama model.
+3. Install dependencies via `npm i`.
+4. Run the app via `npm run dev`.
 
-First, build your app for production:
+Check out the an advanced deployed version here: https://devtools.tech/questions/s/build-a-virtual-dom-to-actual-html-dom-convertor-or-dom-renderer---qid---bAin2TEn862JTFVFgxEi
 
-```sh
-npm run build
-```
+## Don't Forget To Subscribe
 
-Then run the app in production mode:
+https://youtube.com/devtoolstech
 
-```sh
-npm start
-```
+## Sponsor Us
 
-Now you'll need to pick a host to deploy it to.
+https://topmate.io/yomeshgupta/748345
 
-### DIY
+## Top 50 Frontend Interview Questions
 
-If you're familiar with deploying Node applications, the built-in Remix app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-- `build/server`
-- `build/client`
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever css framework you prefer. See the [Vite docs on css](https://vitejs.dev/guide/features.html#css) for more information.
+<iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?si=EEeVfBuokq0yMyQI&amp;list=PL4ruoTJ8LTT96O258zzjRwdiNxzDoas-G" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
